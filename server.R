@@ -40,7 +40,7 @@ shinyServer(function(input, output) {
       mkm = dtSrc$mkm,
       law = (input$introductionSim < dtSrc$t)
     )
-    rv$dtSim <- rv$dtSim[rv$dtSim$law==TRUE,]
+    rv$dtSim <- rv$dtSim[rv$dtSim$law == TRUE,]
 
     rv$dtSim$drivers <- predict(modelDriversInjured, rv$dtSim)
     rv$dtSim$injPkmDrv <- rv$dtSim$drivers / rv$dtSim$mkm
@@ -56,7 +56,7 @@ shinyServer(function(input, output) {
       plot_ly(dtSrc, x = ~t, y = ~drivers, name = 'Historical', type = 'scatter', mode = 'lines+markers', line = list(color='grey')) %>%
         add_trace(x = rv$dtSim$t, y = rv$dtSim$drivers, name = 'Simulated', type = 'scatter', mode = 'lines+markers', line = list(color='black')) %>%
         add_trace(x = input$introductionSim, y=c(0,max(rv$dtSim$drivers, dtSrc$drivers)), name = "Compulsory seat belts", mode = "lines", line = list(color='red')) %>%
-        layout(title = '', yaxis = list(title = "drivers injured"), showlegend=FALSE)
+        layout(title = '', yaxis = list(title = "drivers killed or seriously injured"), showlegend=FALSE)
     })
   })
   output$plotKilledSim <- renderPlotly({
@@ -77,7 +77,7 @@ shinyServer(function(input, output) {
         add_trace(y = ~front/mkm, name = 'front-seat passengers', mode = 'lines+markers') %>%
         add_trace(y = ~rear/mkm, name = 'rear-seat passengers', mode = 'lines+markers') %>%
         add_trace(x = introductionHistorical, y=c(0,max(dtSrc$injPkm)), name = "1983-01-31: introduction\nof compulsory seat\nbelts wearing", mode = "lines", line = list(color='red')) %>%
-        layout(title = "Injured monthly ", yaxis = list(title = "per M.km"))
+        layout(title = "Killed or seriously injured monthly ", yaxis = list(title = "per M.km"))
     })
     output$plotKilledHistoricalPkm <- renderPlotly({
       plot_ly(dtSrc, x = ~t, y = ~killedPkmDrv, name = 'car drivers killed', type = 'scatter', mode = 'lines+markers') %>%
@@ -87,11 +87,13 @@ shinyServer(function(input, output) {
     })
     output$plotmkmHistorical <- renderPlotly({
       plot_ly(dtSrc, x = ~t, y = ~mkm, name = 'Distance driven', type = 'scatter', mode = 'lines+markers', line = list(color='grey')) %>%
-      layout(title = "Distance driven (in millions of km)", yaxis = list(title = "M.km"))
+        add_trace(x = introductionHistorical, y=c(0,max(dtSrc$mkm)), name = "1983-01-31: introduction\nof compulsory seat\nbelts wearing", mode = "lines", line = list(color='red')) %>%
+        layout(title = "Distance driven (in millions of km)", yaxis = list(title = "M.km"))
     })
     output$plotPetrolPriceHistorical <- renderPlotly({
       plot_ly(dtSrc, x = ~t, y = ~PetrolPrice, name = 'Petrol Price', type = 'scatter', mode = 'lines+markers', line = list(color='grey')) %>%
-      layout(title = "Petrol Price", yaxis = list(title = ""))
+        add_trace(x = introductionHistorical, y=c(0,max(dtSrc$PetrolPrice)), name = "1983-01-31: introduction\nof compulsory seat\nbelts wearing", mode = "lines", line = list(color='red')) %>%
+        layout(title = "Petrol Price", yaxis = list(title = ""))
     })
   })
 })

@@ -4,15 +4,13 @@ library(miniUI)
 
 shinyUI(navbarPage("Shiny Project",
   tabPanel("Documentation",
-          h3("H3"),
-          p("PARAGRAPH 1"), br(),
-          p("PARAGRAPH 2"), br(),
-          tags$ol(
-            tags$li("li1"),
-            tags$li("li2"),
-            tags$li("li3"),
-            tags$li("li4")
-          )
+          h3("Effect of seat belts wearing"),
+          h4("Historical data"),
+          p("Gives the monthly totals of car drivers in Great Britain killed or seriously injured and some other data for time period between Jan 1969 and Dec 1984. Compulsory wearing of seat belts was introduced on 31 Jan 1983."),
+          br(),
+          h4("Simulation Experiment"),
+          p("Allows you to use model, trained on historical data, to simulate introduction of compulsory of seat belts wearing on different date. Simulates the monthly totals of car drivers in Great Britain killed or seriously injured and drivers killed after given date."),
+          p("Set new date and click 'simulate' button to update plots.")
   ),
 
   tabPanel("Historical data",
@@ -31,7 +29,7 @@ shinyUI(navbarPage("Shiny Project",
       column(4, div(style = "height: 150px")),
       column(4, div(style = "height: 150px"))
     ),
-    fluidRow(column(12, h4("Simulated plot of car drivers injured monthly"), plotlyOutput("plotInjuriesSim"))),
+    fluidRow(column(12, h4("Simulated plot of car drivers killed or seriously injured monthly"), plotlyOutput("plotInjuriesSim"))),
     tags$hr(),
     fluidRow(column(12, h4("Simulated plot of car drivers killed monthly"), plotlyOutput("plotKilledSim"))),
     tags$hr(),
