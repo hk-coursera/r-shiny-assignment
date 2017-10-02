@@ -1,4 +1,3 @@
-library(UsingR)
 library(datasets)
 library(shiny)
 library(plotly)
@@ -6,6 +5,7 @@ library(lubridate)
 library(caret)
 library(quantmod)
 library(ElemStatLearn)
+library(gbm)
 
 dtSrc <- data.frame(Seatbelts)
 dtSrc$t <- date_decimal(as.vector(time(Seatbelts[,0])))
