@@ -1,11 +1,11 @@
 library(UsingR)
-data(galton)
+library(datasets)
 library(shiny)
 library(plotly)
 library(lubridate)
 library(caret)
-library(ElemStatLearn)
 library(quantmod)
+library(ElemStatLearn)
 
 dtSrc <- data.frame(Seatbelts)
 dtSrc$t <- date_decimal(as.vector(time(Seatbelts[,0])))
@@ -43,10 +43,10 @@ shinyServer(function(input, output) {
     rv$dtSim <- rv$dtSim[rv$dtSim$law == TRUE,]
 
     rv$dtSim$drivers <- predict(modelDriversInjured, rv$dtSim)
-    rv$dtSim$injPkmDrv <- rv$dtSim$drivers / rv$dtSim$mkm
+    #rv$dtSim$injPkmDrv <- rv$dtSim$drivers / rv$dtSim$mkm
 
     rv$dtSim$DriversKilled <- predict(modelDriversKilled, rv$dtSim)
-    rv$dtSim$killedPkmDrv <- rv$dtSim$DriversKilled / rv$dtSim$mkm
+    #rv$dtSim$killedPkmDrv <- rv$dtSim$DriversKilled / rv$dtSim$mkm
   })
 
   ## Simulation Tab
@@ -77,13 +77,13 @@ shinyServer(function(input, output) {
         add_trace(y = ~front/mkm, name = 'front-seat passengers', mode = 'lines+markers') %>%
         add_trace(y = ~rear/mkm, name = 'rear-seat passengers', mode = 'lines+markers') %>%
         add_trace(x = introductionHistorical, y=c(0,max(dtSrc$injPkm)), name = "1983-01-31: introduction\nof compulsory seat\nbelts wearing", mode = "lines", line = list(color='red')) %>%
-        layout(title = "Killed or seriously injured monthly ", yaxis = list(title = "per M.km"))
+        layout(title = "Killed or seriously injured monthly (per M.km) ", yaxis = list(title = "per M.km"))
     })
     output$plotKilledHistoricalPkm <- renderPlotly({
       plot_ly(dtSrc, x = ~t, y = ~killedPkmDrv, name = 'car drivers killed', type = 'scatter', mode = 'lines+markers') %>%
         add_trace(y = ~VanKilled/mkm, name = 'van drivers killed', mode = 'lines+markers') %>%
         add_trace(x = introductionHistorical, y=c(0,max(dtSrc$killedPkmDrv)), name = "1983-01-31: introduction\nof compulsory seat\nbelts wearing", mode = "lines", line = list(color='red')) %>%
-        layout(title = "Killed monthly", yaxis = list(title = "per M.km"))
+        layout(title = "Killed monthly (per M.km)", yaxis = list(title = "per M.km"))
     })
     output$plotmkmHistorical <- renderPlotly({
       plot_ly(dtSrc, x = ~t, y = ~mkm, name = 'Distance driven', type = 'scatter', mode = 'lines+markers', line = list(color='grey')) %>%

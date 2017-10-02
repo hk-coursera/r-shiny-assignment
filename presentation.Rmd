@@ -1,0 +1,50 @@
+---
+title       : "Road casualties in GB 1969–84: Simulation Experiment"
+subtitle    : October 1, 2017
+author      : Gennady Kalashnikov
+job         : 
+framework   : io2012
+highlighter : highlight.js
+hitheme     : tomorrow
+widgets     : []
+mode        : selfcontained
+knit        : slidify::knit2slides
+---
+
+## Page 1
+
+TODO Page 1
+
+---
+
+## Page 2
+
+TODO Page 2
+
+---
+
+## Historical plot
+
+<iframe src="https://hk-coursera.github.io/r-shiny-assignment/presentation-historical-plot.png"
+        height="500" width="100%"
+        scrolling="no" seamless="seamless"
+        frameBorder="0">
+</iframe>
+
+---
+
+## Simulation example
+
+<iframe src="https://hk-coursera.github.io/r-shiny-assignment/presentation-simulated-plot.png"
+        height="500" width="100%"
+        scrolling="no" seamless="seamless"
+        frameBorder="0">
+</iframe>
+
+Simulating intoroduction of compulsory of seat belts wearing set on 31 Jan 1978.
+
+---
+
+## Page 5
+
+TODO Page 5
