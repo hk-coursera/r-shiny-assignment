@@ -50,23 +50,23 @@ Simulating introduction of compulsory of seat belts wearing set on 31 Jan 1978.
 
 ## Model
 
-```{r echo=FALSE, results='hide'}
-library(datasets)
-library(caret)
-library(ElemStatLearn)
-library(gbm)
-set.seed(12345)
-dtSrc <- data.frame(Seatbelts)
-dtSrc$t <- date_decimal(as.vector(time(Seatbelts[,0])))
-dtSrc$mkm <- dtSrc$kms / 1000
-dtSrc$month = factor(month(dtSrc$t))
-dtSrc$law = dtSrc$law == TRUE
-```
 
-```{r}
+
+
+```r
 modelDriversInjured <- train(drivers ~ law + mkm + month, method="gbm",
                              data=dtSrc, verbose=FALSE)
 head(summary(modelDriversInjured, plot = FALSE))
 ```
 
-App uses a very simple model, but it's enough to display great influence of this law on road casualties.
+```
+##             var   rel.inf
+## mkm         mkm 30.610638
+## month12 month12 26.834156
+## lawTRUE lawTRUE 15.179162
+## month11 month11 10.969707
+## month10 month10  8.034743
+## month4   month4  4.963070
+```
+
+App uses a very simply model, but it's enough to display great influence of this law on road casualties.

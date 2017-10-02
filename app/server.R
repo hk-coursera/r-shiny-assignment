@@ -7,6 +7,8 @@ library(quantmod)
 library(ElemStatLearn)
 library(gbm)
 
+set.seed(12345)
+
 dtSrc <- data.frame(Seatbelts)
 dtSrc$t <- date_decimal(as.vector(time(Seatbelts[,0])))
 
@@ -19,8 +21,8 @@ dtSrc$month = factor(month(dtSrc$t))
 dtSrc$law = dtSrc$law == TRUE
 
 ## Models
-modelDriversInjured <- train(drivers ~ law * mkm + month, method="gbm", data = dtSrc, verbose = FALSE)
-modelDriversKilled <- train(DriversKilled ~ law * mkm + month, method="gbm", data = dtSrc, verbose = FALSE)
+modelDriversInjured <- train(drivers ~ law + mkm + month, method="gbm", data = dtSrc, verbose = FALSE)
+modelDriversKilled <- train(DriversKilled ~ law + mkm + month, method="gbm", data = dtSrc, verbose = FALSE)
 
 shinyServer(function(input, output) {
   rv <- reactiveValues(

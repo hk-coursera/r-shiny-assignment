@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Road casualties in GB 1969–84: Simulation Experiment</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Road casualties in GB 1969–84: Simulation Experiment">
+  <meta name="author" content="Gennady Kalashnikov">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Road casualties in GB 1969–84: Simulation Experiment</h1>
+    <h2>October 1, 2017</h2>
+    <p>Gennady Kalashnikov<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>History</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The fact that introduction of compulsory wearing of seat belts greatly reduced number of road casualties is well known.</li>
+</ul>
+
+<p><img src="https://hk-coursera.github.io/r-shiny-assignment/presentation-historical-plot.png"
+     height="450px" width="100%"/></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Road casualties</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>But can effect of seatbelts on total number of injuries be estimated?</p></li>
+<li><p>Or theoretical effect of introducing it sooner (or later)?</p></li>
+<li><p>This app makes an attempt to do it.</p></li>
+<li><p>It allows you to use model, trained on historical data, to simulate introduction of compulsory wearing of seat belts on any date.</p></li>
+</ul>
+
+<h2>Simulation app</h2>
+
+<ul>
+<li><p>Give it a new date of introduction of compulsory wearing of seat belts in Great Britain.</p></li>
+<li><p>Click &#39;simulate&#39; button</p></li>
+<li><p>And it estimates the monthly totals of car drivers killed or seriously injured and drivers killed after this date (in Great Britain).</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Example of simulation plot</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="https://hk-coursera.github.io/r-shiny-assignment/presentation-simulated-plot.png"
+     height="450px" width="100%"/></p>
+
+<p>Simulating introduction of compulsory of seat belts wearing set on 31 Jan 1978.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Model</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="r">modelDriversInjured &lt;- train(drivers ~ law + mkm + month, method=&quot;gbm&quot;,
+                             data=dtSrc, verbose=FALSE)
+head(summary(modelDriversInjured, plot = FALSE))
+</code></pre>
+
+<pre><code>##             var   rel.inf
+## mkm         mkm 30.610638
+## month12 month12 26.834156
+## lawTRUE lawTRUE 15.179162
+## month11 month11 10.969707
+## month10 month10  8.034743
+## month4   month4  4.963070
+</code></pre>
+
+<p>App uses a very simply model, but it&#39;s enough to display great influence of this law on road casualties.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='History'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Road casualties'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Example of simulation plot'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Model'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
